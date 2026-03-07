@@ -1,0 +1,325 @@
+/* ═══════════════════════════════════════════════════
+   Mandal Calendar — Orange/Cream Theme
+   Matches project colors: #FF6B35, #D32F2F, #FFC107
+═══════════════════════════════════════════════════ */
+
+:root {
+  --cal-primary: #FF6B35;
+  --cal-primary-light: rgba(255, 107, 53, 0.08);
+  --cal-primary-hover: rgba(255, 107, 53, 0.14);
+  --cal-weekend: #D32F2F;
+  --cal-text: #2E2E2E;
+  --cal-text-muted: #888;
+  --cal-border: #F0E8E0;
+  --cal-bg: #ffffff;
+  --cal-today-bg: #FF6B35;
+}
+
+/* ── Hide default toolbar (we use custom) ─────────── */
+.mandal-calendar .rbc-toolbar {
+  display: none !important;
+}
+
+/* ── Calendar wrapper ─────────────────────────────── */
+.mandal-calendar .rbc-calendar {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  background: transparent;
+  border: none;
+}
+
+/* ── Month view ───────────────────────────────────── */
+.mandal-calendar .rbc-month-view {
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: var(--cal-bg);
+  border: 1px solid var(--cal-border);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
+}
+
+/* ── Weekday header row (Sun–Sat) ─────────────────── */
+.mandal-calendar .rbc-month-header {
+  background: transparent;
+  border-bottom: 2px solid var(--cal-border);
+}
+
+.mandal-calendar .rbc-header {
+  padding: 12px 0;
+  text-align: center;
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--cal-text);
+  border-right: 1px solid var(--cal-border);
+  border-bottom: none;
+  background: transparent;
+}
+
+.mandal-calendar .rbc-header:last-child {
+  border-right: none;
+}
+
+/* Weekend headers (Sun & Sat) in orange/red */
+.mandal-calendar .rbc-header:first-child,
+.mandal-calendar .rbc-header:last-child {
+  color: var(--cal-primary);
+}
+
+/* ── Month rows & grid cells ──────────────────────── */
+.mandal-calendar .rbc-month-row {
+  border-bottom: 1px solid var(--cal-border);
+  min-height: 80px;
+}
+
+.mandal-calendar .rbc-month-row:last-child {
+  border-bottom: none;
+}
+
+.mandal-calendar .rbc-day-bg {
+  border-right: 1px solid var(--cal-border);
+  transition: background 0.15s ease;
+}
+
+.mandal-calendar .rbc-day-bg:last-child {
+  border-right: none;
+}
+
+/* Hover on cells */
+.mandal-calendar .rbc-day-bg:hover {
+  background-color: var(--cal-primary-light);
+}
+
+/* Off-range days (prev/next month) */
+.mandal-calendar .rbc-off-range-bg {
+  background-color: rgba(0, 0, 0, 0.015);
+}
+
+/* ── Today highlight ──────────────────────────────── */
+.mandal-calendar .rbc-day-bg.rbc-today {
+  background-color: var(--cal-primary-light);
+}
+
+/* ── Date cell numbers ────────────────────────────── */
+.mandal-calendar .rbc-date-cell {
+  padding: 6px 10px 2px 0;
+  text-align: left;
+  padding-left: 8px;
+}
+
+.mandal-calendar .rbc-date-cell > a,
+.mandal-calendar .rbc-date-cell .rbc-button-link {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--cal-text);
+  text-decoration: none;
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+/* Off-range date numbers */
+.mandal-calendar .rbc-off-range .rbc-button-link,
+.mandal-calendar .rbc-off-range a {
+  color: #ccc;
+}
+
+/* Hover on date number */
+.mandal-calendar .rbc-date-cell .rbc-button-link:hover {
+  background-color: var(--cal-primary-hover);
+  color: var(--cal-primary);
+}
+
+/* Today date — filled orange circle */
+.mandal-calendar .rbc-now .rbc-button-link,
+.mandal-calendar .rbc-current .rbc-button-link {
+  background-color: var(--cal-today-bg);
+  color: #ffffff;
+  font-weight: 700;
+}
+
+/* ── Events ───────────────────────────────────────── */
+.mandal-calendar .rbc-event {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 1px 4px !important;
+  box-shadow: none !important;
+  outline: none !important;
+  border-radius: 0 !important;
+}
+
+.mandal-calendar .rbc-event:focus {
+  outline: none !important;
+}
+
+.mandal-calendar .rbc-event-content {
+  font-size: 12px;
+}
+
+/* Row segment / event row */
+.mandal-calendar .rbc-row-segment {
+  padding: 0 2px;
+}
+
+/* Show more link */
+.mandal-calendar .rbc-show-more {
+  color: var(--cal-primary);
+  font-weight: 600;
+  font-size: 11px;
+  padding: 2px 6px;
+}
+
+/* ── Week / Day view ──────────────────────────────── */
+.mandal-calendar .rbc-time-view {
+  border: 1px solid var(--cal-border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.mandal-calendar .rbc-time-header {
+  border-bottom: 2px solid var(--cal-border);
+}
+
+.mandal-calendar .rbc-time-content {
+  border-top: none;
+}
+
+.mandal-calendar .rbc-timeslot-group {
+  border-bottom: 1px solid var(--cal-border);
+  min-height: 50px;
+}
+
+.mandal-calendar .rbc-time-slot {
+  border-top: none;
+}
+
+.mandal-calendar .rbc-current-time-indicator {
+  background-color: var(--cal-primary);
+  height: 2px;
+}
+
+.mandal-calendar .rbc-day-slot .rbc-time-slot {
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.mandal-calendar .rbc-time-header-content {
+  border-left: 1px solid var(--cal-border);
+}
+
+.mandal-calendar .rbc-time-gutter .rbc-label {
+  font-size: 11px;
+  color: var(--cal-text-muted);
+  font-weight: 500;
+}
+
+/* ── Agenda view ──────────────────────────────────── */
+.mandal-calendar .rbc-agenda-view {
+  border: 1px solid var(--cal-border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.mandal-calendar .rbc-agenda-view table.rbc-agenda-table {
+  border: none;
+}
+
+.mandal-calendar .rbc-agenda-view table.rbc-agenda-table thead > tr > th {
+  background: var(--cal-primary-light);
+  color: var(--cal-primary);
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 10px 12px;
+  border-bottom: 2px solid var(--cal-border);
+}
+
+.mandal-calendar .rbc-agenda-view table.rbc-agenda-table tbody > tr > td {
+  padding: 10px 12px;
+  font-size: 13px;
+  border-bottom: 1px solid var(--cal-border);
+}
+
+.mandal-calendar .rbc-agenda-date-cell,
+.mandal-calendar .rbc-agenda-time-cell {
+  white-space: nowrap;
+  color: var(--cal-text);
+  font-weight: 500;
+}
+
+.mandal-calendar .rbc-agenda-event-cell {
+  color: var(--cal-text);
+}
+
+/* ── Overlay / popup ──────────────────────────────── */
+.mandal-calendar .rbc-overlay {
+  border-radius: 10px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  border: 1px solid var(--cal-border);
+  padding: 8px;
+  background: #fff;
+  z-index: 10;
+}
+
+.mandal-calendar .rbc-overlay-header {
+  font-weight: 600;
+  color: var(--cal-primary);
+  font-size: 13px;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--cal-border);
+  margin-bottom: 4px;
+}
+
+/* ── Focus/outline cleanup ────────────────────────── */
+.mandal-calendar .rbc-event:focus,
+.mandal-calendar .rbc-button-link:focus,
+.mandal-calendar .rbc-show-more:focus {
+  outline: none;
+}
+
+/* remove default rbc borders on month view wrapper */
+.mandal-calendar .rbc-month-view,
+.mandal-calendar .rbc-month-row + .rbc-month-row {
+  border-top: none;
+}
+
+/* ── Mobile responsive ────────────────────────────── */
+@media (max-width: 768px) {
+  .mandal-calendar .rbc-header {
+    font-size: 11px;
+    padding: 8px 0;
+    letter-spacing: 0;
+  }
+
+  .mandal-calendar .rbc-date-cell .rbc-button-link {
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+  }
+
+  .mandal-calendar .rbc-event-content {
+    font-size: 10px;
+  }
+
+  .mandal-calendar .rbc-month-row {
+    min-height: 60px;
+  }
+
+  .mandal-calendar .rbc-date-cell {
+    padding: 4px 4px 2px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mandal-calendar .rbc-header {
+    font-size: 10px;
+  }
+
+  .mandal-calendar .rbc-month-row {
+    min-height: 50px;
+  }
+}

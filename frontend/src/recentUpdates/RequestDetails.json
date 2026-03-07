@@ -1,0 +1,30 @@
+{
+    "contribution": {
+      "heading": "Contribution Details",
+      "desc": "Kindly review your requested contrbutions",
+      "columns": [
+        { "id": "donor_name", "label": "Donor Name", "minWidth": 150, "align": "left" },
+        { "id": "amount", "label": "Amount", "minWidth": 100, "align": "left" },
+        { "id": "created_at", "label": "Date of Request", "minWidth": 150, "align": "left" },
+        { "id": "phone_no", "label": "Phone No", "minWidth": 150, "align": "left" },
+        { "id": "added_by", "label": "Added by", "minWidth": 150, "align": "left" },
+        { "id": "request_status", "label": "Status", "minWidth": 120, "align": "left" },
+        { "id": "action", "label": "Action", "minWidth": 120, "align": "left" }
+      ]
+    },
+    "investment": {
+      "heading": "Investment Details",
+      "desc": "Kindly review your requested investments",
+      "columns": [
+        { "id": "title", "label": "Title", "minWidth": 150, "align": "left" },
+        { "id": "description", "label": "Description", "minWidth": 200, "align": "left" },
+        { "id": "amount", "label": "Amount", "minWidth": 100, "align": "left" },
+        { "id": "shop_name", "label": "Shop name", "minWidth": 150, "align": "left" },
+        { "id": "created_at", "label": "Date of Request", "minWidth": 150, "align": "left" },
+        { "id": "request_status", "label": "Status", "minWidth": 120, "align": "left" },
+        { "id": "action", "label": "Action", "minWidth": 120, "align": "left" },
+        { "id": "request_status", "label": "Status", "minWidth": 120, "align": "left" }
+      ]
+    }
+  }
+  
