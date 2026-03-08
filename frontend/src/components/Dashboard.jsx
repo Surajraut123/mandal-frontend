@@ -264,7 +264,6 @@ const Dashboard = ({ loader }) => {
       </Card>
 
       <Box sx={{ flex: 1, minHeight: 0, display: 'flex', gap: 1.5, flexDirection: isCompact ? 'column' : 'row' }}>
-        {/* Line Chart — Collection Trend */}
         <Card sx={{ flex: 1.3, minWidth: 0, display: 'flex', flexDirection: 'column', border: `1px solid ${alpha(theme.palette.primary.main, 0.08)}` }}>
           <CardContent sx={{ p: '12px 16px !important', flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0 }}>
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 0.5 }}>
@@ -318,7 +317,6 @@ const Dashboard = ({ loader }) => {
 
       <Box sx={{ flex: 0.8, minHeight: 0, display: 'flex', gap: 1.5, flexDirection: isCompact ? 'column' : 'row', flexShrink: 0 }}>
 
-        {/* Top Contributors Table */}
         <Card sx={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', border: `1px solid ${alpha(theme.palette.primary.main, 0.08)}` }}>
           <CardContent sx={{ p: '12px 16px !important', flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
