@@ -47,11 +47,10 @@ jobs:
         run: aws s3 sync ./dist/ s3://${{ secrets.AWS_S3_BUCKET_NAME }} --delete
 
       - name: Invalidate CloudFront Cache
-        uses: chetan/invalidate-cloudfront-action@v1
-        with: 
-          distribution-id: ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }}
-          paths: '/*'
-          aws-region: ${{ vars.AWS_REGION }}
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }} \
+            --paths "/*"
 
       - name: Notify Google Chat - Success
         if: success()
