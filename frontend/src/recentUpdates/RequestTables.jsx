@@ -19,6 +19,7 @@ const RequestTables = (props) => {
     const TREASURER_ID = import.meta.env.VITE_TREASURER; 
     const ADMIN_ID = import.meta.env.VITE_ADMIN;
     const loggedInUserRoleName = useSelector((state) => state.role.roleName)
+    console.log("Data in tables : ", loggedInUserRoleName)
 
     const [statusMap, setStatusMap] = useState([]);
 
@@ -36,6 +37,7 @@ const RequestTables = (props) => {
     const [statusData, setStatusData] = useState({});
 
     const handleStatusChange = (newStatus, request_id) => {
+        console.log("Status Change Triggered : ", newStatus, request_id)
         setDialogOpen(true)
         setRequestAgreed(request_id);
         setStatusData({newStatus, request_id, prevStatus : statusMap[request_id] });

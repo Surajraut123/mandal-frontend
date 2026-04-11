@@ -87,7 +87,8 @@ const slice = createSlice({
                     const item = list.find((i) => i.request_id === request_id);
                     console.log("Existing status : ", item, " newStatus : ", newStatus, " Request id : ", request_id)
                     if (item) {
-                        item.status = newStatus.toUpperCase();
+                        console.log("Updating status for request id : ", request_id, " from ", item.request_status, " to ", newStatus);
+                        item.request_status = newStatus.toUpperCase();
                     }
                 }
             } else {

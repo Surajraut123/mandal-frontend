@@ -70,8 +70,8 @@ const Navbar = ({ onDrawerToggle, name, profileImage}) => {
         boxShadow: '0px 4px 20px rgba(255, 107, 53, 0.3)'
       }}
     >
-      <Toolbar sx={{ justifyContent: 'space-between' }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+      <Toolbar sx={{ justifyContent: 'space-between', minHeight: { xs: 56, sm: 64 } }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, minWidth: 0 }}>
           {isMobile && (
             <IconButton
               color="inherit"
@@ -88,17 +88,20 @@ const Navbar = ({ onDrawerToggle, name, profileImage}) => {
               <MenuIcon />
             </IconButton>
           )}
-          
-          <img 
-            src={Logo} 
+
+          <Box
+            component="img"
+            src={Logo}
             alt="Logo"
-            style={{ 
+            sx={{
               marginRight: '8px',
-              width: isMobile ? '150px' : '300px',
-              height: 'auto',
-              maxWidth: '100%',
-              transition: 'width 0.3s ease-in-out'
-            }} 
+              height: { xs: 40, sm: 48 },
+              width: 'auto',
+              maxWidth: { xs: 160, sm: 260 },
+              objectFit: 'contain',
+              display: 'block',
+              transition: 'height 0.3s ease-in-out',
+            }}
           />
         </Box>
 

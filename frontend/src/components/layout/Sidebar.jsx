@@ -188,6 +188,11 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle }) => {
           '& .MuiDrawer-paper': {
             boxSizing: 'border-box',
             width: drawerWidth,
+            overflowY: 'auto',
+            overflowX: 'hidden',
+            scrollbarWidth: 'none',
+            msOverflowStyle: 'none',
+            '&::-webkit-scrollbar': { display: 'none', width: 0, height: 0 },
           },
         }}
       >
@@ -204,6 +209,11 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle }) => {
             zIndex: theme.zIndex.drawer,
             marginTop: '64px',
             height: 'calc(100vh - 64px)',
+            overflowY: 'auto',
+            overflowX: 'hidden',
+            scrollbarWidth: 'none',
+            msOverflowStyle: 'none',
+            '&::-webkit-scrollbar': { display: 'none', width: 0, height: 0 },
           },
         }}
         open

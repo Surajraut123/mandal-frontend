@@ -142,7 +142,7 @@ const Contribution = () => {
             setOptions([]);
         } else {
             let filtered = [];
-            for(let i=0; i<mandalUsers.length; i++) {
+            for(let i=0; i<mandalUsers?.length; i++) {
                 if(mandalUsers[i]?.donor_name.toLowerCase().includes(newInputValue?.toLowerCase())){
                     console.log("Matched User : ", mandalUsers[i])
                     filtered.push(mandalUsers[i])
@@ -166,8 +166,11 @@ const Contribution = () => {
 
     const theme = useTheme();
     return (
+        <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', pt: { xs: 5, sm: 6 }, pb: 2, px: { xs: 1, sm: 2 } }}>
         <Card
             sx={{
+                width: '100%',
+                maxWidth: 900,
                 borderRadius: 4,
                 boxShadow: '0px 20px 60px rgba(255, 107, 53, 0.2)',
                 background: 'rgba(255, 255, 255, 0.95)',
@@ -195,7 +198,7 @@ const Contribution = () => {
             >
             <CardContent sx={{ p: { xs: 3, sm: 4 }, pt: { xs: 5, sm: 6 } }}>
                 <Slide direction="down" in timeout={1000}>
-                    <Box sx={{ textAlign: 'center', mb: 4 }}>
+                    <Box sx={{ textAlign: 'center', mb: 4, width: '100%' }} data-id="header-box">
                         <Typography
                             variant="h4"
                             sx={{
@@ -226,7 +229,8 @@ const Contribution = () => {
                             mt: 2, 
                             display: 'flex',
                             flexDirection: 'column',
-                            alignItems: 'center'
+                            alignItems: 'center',
+                            width: '100%'
                         }} 
                         data-id="form-box"
                     >  
@@ -447,6 +451,7 @@ const Contribution = () => {
                 </Slide>
             </CardContent>
         </Card>
+        </Box>
     )
 }
 

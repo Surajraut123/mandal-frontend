@@ -3,7 +3,7 @@ import {
   Box, Typography, Card, CardContent, Fade, useTheme,
   Avatar, LinearProgress, CircularProgress,
   useMediaQuery, Chip, ToggleButton, ToggleButtonGroup,
-  Stack, alpha, Button
+  alpha, Button
 } from '@mui/material';
 import {
   AccountBalance, TrendingUp, People, Celebration,
@@ -42,7 +42,6 @@ const DEMO_TOTAL_INVESTMENTS = 45000;
 const DEMO_ACTIVE_MEMBERS = 18;
 const DEMO_TOTAL_MEMBERS = 25;
 const DEMO_CONTRIBUTORS_COUNT = 10;
-const DEMO_TRANSACTIONS = 14;
 
 const RANK_BG = ['#FFD700', '#C0C0C0', '#CD7F32', '#7C4DFF', '#9E9E9E'];
 const RANK_FG = ['#B8860B', '#707070', '#8B4513', '#7C4DFF', '#757575'];
@@ -160,12 +159,6 @@ const Dashboard = ({ loader }) => {
     });
     return Object.entries(map).map(([name, amount]) => ({ name, amount })).sort((a, b) => b.amount - a.amount).slice(0, 5);
   }, [getContributedDetails, hasRealData]);
-  const totalTransactions = hasRealData
-    ? (getContributedDetails?.data?.length || 0) + (investmentRequests?.data?.length || 0)
-    : DEMO_TRANSACTIONS;
-  const avgContribution = totalContributors > 0 ? Math.round(totalAmount / totalContributors) : 0;
-  const highestDonation = topContributors[0]?.amount || 0;
-
   const pieData = [
     { id: 0, value: totalAmount || 1, label: 'Collections', color: theme.palette.primary.main },
     { id: 1, value: totalInvestments || 1, label: 'Investments', color: '#AB47BC' },
@@ -180,15 +173,20 @@ const Dashboard = ({ loader }) => {
     );
   }
 
-  const chartH = isMobile ? 200 : 260;
+  const chartH = isMobile ? 240 : 280;
 
   return (
     <Box
       sx={{
         display: 'flex', flexDirection: 'column',
-        height: isCompact ? 'auto' : '100%',
-        overflow: isCompact ? 'auto' : 'hidden',
+        height: '100%',
+        width: '100%',
+        overflowY: 'auto',
+        overflowX: 'hidden',
         gap: 1.5, p: { xs: 0.5, sm: 1, md: 1.5 },
+        scrollbarWidth: 'none',
+        msOverflowStyle: 'none',
+        '&::-webkit-scrollbar': { display: 'none' },
       }}
     >
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexShrink: 0 }}>
@@ -203,28 +201,14 @@ const Dashboard = ({ loader }) => {
             </Typography>
           </Box>
         </Box>
-        <ToggleButtonGroup
-          value={period} exclusive size="small"
-          onChange={(_, v) => v && setPeriod(v)}
-          sx={{
-            '& .MuiToggleButton-root': {
-              textTransform: 'none', fontWeight: 600, px: { xs: 1, sm: 2 }, py: 0.4,
-              fontSize: { xs: '0.7rem', sm: '0.8rem' }, border: '1px solid #e0e0e0',
-              '&.Mui-selected': { bgcolor: alpha(theme.palette.primary.main, 0.12), color: theme.palette.primary.main, borderColor: alpha(theme.palette.primary.main, 0.3) },
-            },
-          }}
-        >
-          <ToggleButton value="yearly">Yearly</ToggleButton>
-          <ToggleButton value="monthly">Monthly</ToggleButton>
-          <ToggleButton value="weekly">Weekly</ToggleButton>
-        </ToggleButtonGroup>
       </Box>
 
-      <Box sx={{ flexShrink: 0 }}>
+      <Box sx={{ flexShrink: 0, width: '100%' }}>
         <Box sx={{
           display: 'grid',
-          gridTemplateColumns: { xs: 'repeat(2, 1fr)', sm: 'repeat(3, 1fr)', lg: 'repeat(6, 1fr)' },
+          gridTemplateColumns: { xs: 'repeat(2, 1fr)', sm: 'repeat(3, 1fr)' },
           gap: { xs: 1, sm: 1.5 },
+          width: '100%',
         }}>
           {[
             { icon: <AccountBalance fontSize="small" />, title: 'Total Collection', value: `₹${totalAmount.toLocaleString('en-IN')}`, color: theme.palette.primary.main, trend: { dir: 1, label: `${collectionRate}%` } },
@@ -263,9 +247,9 @@ const Dashboard = ({ loader }) => {
         </CardContent>
       </Card>
 
-      <Box sx={{ flex: 1, minHeight: 0, display: 'flex', gap: 1.5, flexDirection: isCompact ? 'column' : 'row' }}>
-        <Card sx={{ flex: 1.3, minWidth: 0, display: 'flex', flexDirection: 'column', border: `1px solid ${alpha(theme.palette.primary.main, 0.08)}` }}>
-          <CardContent sx={{ p: '12px 16px !important', flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+      <Box sx={{ display: 'grid', gap: 1.5, gridTemplateColumns: isCompact ? '1fr' : '1fr 1fr', flexShrink: 0, width: '100%' }}>
+        <Card sx={{ minWidth: 0, display: 'flex', flexDirection: 'column', border: `1px solid ${alpha(theme.palette.primary.main, 0.08)}` }}>
+          <CardContent sx={{ p: '12px 16px !important', flex: 1, display: 'flex', flexDirection: 'column' }}>
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 0.5 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
                 <ShowChart sx={{ color: theme.palette.primary.main, fontSize: 18 }} />
@@ -273,7 +257,7 @@ const Dashboard = ({ loader }) => {
               </Box>
               <Chip label="This Month" size="small" sx={{ height: 22, fontSize: '0.65rem', fontWeight: 600, bgcolor: alpha(theme.palette.primary.main, 0.08), color: theme.palette.primary.main }} />
             </Box>
-            <Box sx={{ flex: 1, minHeight: 0 }}>
+            <Box sx={{ width: '100%', height: chartH }}>
               <LineChart
                 xAxis={[{ scaleType: 'point', data: MONTHS, tickLabelStyle: { fontSize: 11 } }]}
                 series={[
@@ -281,7 +265,7 @@ const Dashboard = ({ loader }) => {
                   { data: monthlyContributions, label: 'Monthly', color: '#7C4DFF', showMark: false, curve: 'natural' },
                 ]}
                 height={chartH}
-                margin={{ top: 30, bottom: 28, left: 55, right: 15 }}
+                margin={{ top: 40, bottom: 32, left: 70, right: 20 }}
                 slotProps={{
                   legend: { direction: 'row', position: { vertical: 'top', horizontal: 'left' }, padding: { top: 0, left: 10 }, itemMarkWidth: 10, itemMarkHeight: 3, labelStyle: { fontSize: 11, fontWeight: 500 } },
                 }}
@@ -290,13 +274,13 @@ const Dashboard = ({ loader }) => {
             </Box>
           </CardContent>
         </Card>
-        <Card sx={{ flex: 0.7, minWidth: 0, display: 'flex', flexDirection: 'column', border: `1px solid ${alpha(theme.palette.primary.main, 0.08)}` }}>
-          <CardContent sx={{ p: '12px 16px !important', flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+        <Card sx={{ minWidth: 0, display: 'flex', flexDirection: 'column', border: `1px solid ${alpha(theme.palette.primary.main, 0.08)}` }}>
+          <CardContent sx={{ p: '12px 16px !important', flex: 1, display: 'flex', flexDirection: 'column' }}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mb: 0.5 }}>
               <BarChartIcon sx={{ color: theme.palette.secondary.main, fontSize: 18 }} />
               <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>Monthly Revenue</Typography>
             </Box>
-            <Box sx={{ flex: 1, minHeight: 0 }}>
+            <Box sx={{ width: '100%', height: chartH }}>
               <BarChart
                 xAxis={[{ scaleType: 'band', data: MONTHS, tickLabelStyle: { fontSize: 11 } }]}
                 series={[
@@ -304,7 +288,7 @@ const Dashboard = ({ loader }) => {
                   { data: monthlyInvestments, label: 'Out', color: alpha('#AB47BC', 0.45) },
                 ]}
                 height={chartH}
-                margin={{ top: 30, bottom: 28, left: 55, right: 15 }}
+                margin={{ top: 40, bottom: 32, left: 70, right: 20 }}
                 slotProps={{
                   legend: { direction: 'row', position: { vertical: 'top', horizontal: 'right' }, padding: { top: 0, right: 10 }, itemMarkWidth: 10, itemMarkHeight: 10, labelStyle: { fontSize: 11, fontWeight: 500 } },
                 }}
@@ -315,10 +299,10 @@ const Dashboard = ({ loader }) => {
         </Card>
       </Box>
 
-      <Box sx={{ flex: 0.8, minHeight: 0, display: 'flex', gap: 1.5, flexDirection: isCompact ? 'column' : 'row', flexShrink: 0 }}>
+      <Box sx={{ display: 'grid', gap: 1.5, gridTemplateColumns: isCompact ? '1fr' : '1fr 1fr', flexShrink: 0, width: '100%' }}>
 
-        <Card sx={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', border: `1px solid ${alpha(theme.palette.primary.main, 0.08)}` }}>
-          <CardContent sx={{ p: '12px 16px !important', flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        <Card sx={{ minWidth: 0, display: 'flex', flexDirection: 'column', border: `1px solid ${alpha(theme.palette.primary.main, 0.08)}` }}>
+          <CardContent sx={{ p: '12px 16px !important', flex: 1, display: 'flex', flexDirection: 'column' }}>
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
               <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>Top Contributors</Typography>
               <Button
@@ -335,7 +319,7 @@ const Dashboard = ({ loader }) => {
               <Typography variant="caption" color="text.secondary" sx={{ width: 75, textAlign: 'right', fontWeight: 600, textTransform: 'uppercase', fontSize: '0.6rem', letterSpacing: 0.5 }}>Amount</Typography>
               <Typography variant="caption" color="text.secondary" sx={{ width: 50, textAlign: 'center', fontWeight: 600, textTransform: 'uppercase', fontSize: '0.6rem', letterSpacing: 0.5 }}>Rank</Typography>
             </Box>
-            <Box sx={{ flex: 1, overflow: 'auto' }}>
+            <Box sx={{ maxHeight: 260, overflow: 'auto' }}>
               {topContributors.map((c, i) => (
                 <Box
                   key={c.name}
@@ -373,70 +357,35 @@ const Dashboard = ({ loader }) => {
           </CardContent>
         </Card>
 
-        <Card sx={{ flex: 0.8, minWidth: 0, display: 'flex', flexDirection: 'column', border: `1px solid ${alpha(theme.palette.primary.main, 0.08)}` }}>
-          <CardContent sx={{ p: '12px 16px !important', flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+        <Card sx={{ minWidth: 0, display: 'flex', flexDirection: 'column', border: `1px solid ${alpha(theme.palette.primary.main, 0.08)}` }}>
+          <CardContent sx={{ p: '12px 16px !important', flex: 1, display: 'flex', flexDirection: 'column' }}>
             <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 0.5 }}>Fund Distribution</Typography>
-            <Box sx={{ flex: 1, minHeight: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', flex: 1, minHeight: isMobile ? 220 : 260, overflow: 'hidden' }}>
               <PieChart
                 series={[{
                   data: pieData,
-                  innerRadius: isMobile ? 35 : 50,
-                  outerRadius: isMobile ? 65 : 85,
+                  innerRadius: isMobile ? 40 : 55,
+                  outerRadius: isMobile ? 70 : 90,
                   paddingAngle: 2,
                   cornerRadius: 5,
                   highlightScope: { fade: 'global', highlight: 'item' },
                 }]}
-                width={isMobile ? 250 : 280}
-                height={isMobile ? 180 : 220}
+                width={isMobile ? 260 : 300}
+                height={isMobile ? 220 : 260}
                 slotProps={{
                   legend: {
                     direction: 'row',
-                    position: { vertical: 'top', horizontal: 'middle' },
-                    padding: { top: 0 },
+                    position: { vertical: 'bottom', horizontal: 'middle' },
+                    padding: { bottom: 0 },
                     itemMarkWidth: 10,
                     itemMarkHeight: 10,
                     labelStyle: { fontSize: 11, fontWeight: 500 },
                     itemGap: 16,
                   },
                 }}
-                margin={{ top: 30, bottom: 10, left: 10, right: 10 }}
+                margin={{ top: 10, bottom: 40, left: 10, right: 10 }}
               />
             </Box>
-          </CardContent>
-        </Card>
-        <Card sx={{ flex: 0.8, minWidth: 0, display: 'flex', flexDirection: 'column', border: `1px solid ${alpha(theme.palette.primary.main, 0.08)}` }}>
-          <CardContent sx={{ p: '12px 16px !important', flex: 1, display: 'flex', flexDirection: 'column' }}>
-            <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 1.5 }}>Quick Insights</Typography>
-            <Stack spacing={1.2} sx={{ flex: 1 }}>
-              {[
-                { label: 'Avg. Contribution', value: `₹${avgContribution.toLocaleString('en-IN')}`, color: theme.palette.primary.main },
-                { label: 'Highest Donation', value: `₹${highestDonation.toLocaleString('en-IN')}`, color: theme.palette.primary.main },
-                { label: 'Transactions', value: totalTransactions, color: '#7C4DFF' },
-                { label: 'Efficiency', value: `${collectionRate}%`, color: '#E91E63' },
-              ].map((item) => (
-                <Box
-                  key={item.label}
-                  sx={{
-                    display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                    py: 0.8, borderBottom: `1px solid ${alpha('#000', 0.05)}`,
-                  }}
-                >
-                  <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500, fontSize: '0.8rem' }}>
-                    {item.label}
-                  </Typography>
-                  <Typography variant="body2" sx={{ fontWeight: 700, color: item.color, fontSize: '0.85rem' }}>
-                    {item.value}
-                  </Typography>
-                </Box>
-              ))}
-            </Stack>
-            <Button
-              fullWidth variant="contained" size="small"
-              onClick={() => navigate('/add-contribution')}
-              sx={{ mt: 1.5, textTransform: 'none', fontWeight: 600, fontSize: '0.8rem', py: 1, borderRadius: 2 }}
-            >
-              + Add Contribution
-            </Button>
           </CardContent>
         </Card>
       </Box>

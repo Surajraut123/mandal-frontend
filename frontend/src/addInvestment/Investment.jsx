@@ -97,8 +97,11 @@ const Investment = () => {
 
     const theme = useTheme();
     return (
+        <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', pt: { xs: 5, sm: 6 }, pb: 2, px: { xs: 1, sm: 2 } }}>
         <Card
             sx={{
+                width: '100%',
+                maxWidth: 900,
                 borderRadius: 4,
                 boxShadow: '0px 20px 60px rgba(255, 107, 53, 0.2)',
                 background: 'rgba(255, 255, 255, 0.95)',
@@ -319,6 +322,7 @@ const Investment = () => {
                 </Slide>
             </CardContent>
         </Card>
+        </Box>
     )
 }
 
